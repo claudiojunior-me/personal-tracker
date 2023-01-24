@@ -1,49 +1,37 @@
 import { StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
+import { Chip } from 'react-native-ui-lib';
+import { useTrackers } from '../context/trackers';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+  const { dateMarked, trackers, addTrackForDate } = useTrackers()
+
+  function onDayPress(day) {
+    console.log(day?.dateString)
+    addTrackForDate(day.dateString)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Meus Hábitos</Text>
       <Calendar
         monthFormat={'MMM yyyy'}
         firstDay={0}
+        onDayPress={onDayPress}
         enableSwipeMonths={true}
         markingType="multi-period"
-        markedDates={{
-          '2023-01-16': {
-            periods: [
-              { startingDay: true, endingDay: false, color: '#5f9ea0' },
-              { startingDay: true, endingDay: true, color: '#ffa500' },
-              { startingDay: true, endingDay: true, color: '#f0e68c' }
-            ]
-          },
-          '2023-01-17': {
-            periods: [
-              { startingDay: false, endingDay: false, color: '#5f9ea0' },
-              { startingDay: true, endingDay: true, color: '#ffa500' },
-            ]
-          },
-          '2023-01-18': {
-            periods: [
-              { startingDay: false, endingDay: true, color: '#5f9ea0' },
-              { startingDay: true, endingDay: false, color: '#f0e68c' }
-            ]
-          },
-          '2023-01-19': {
-            periods: [
-              { startingDay: true, endingDay: true, color: '#ffa500' },
-              { startingDay: false, endingDay: true, color: '#f0e68c' }
-            ]
-          }
-        }}
+        markedDates={dateMarked}
       />
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+
+      {
+        trackers.map(tracker => (
+          <Chip label={tracker.name} onPress={() => console.log('pressed')} backgroundColor={tracker.color} />
+        ))
+      }
     </View>
   );
 }
