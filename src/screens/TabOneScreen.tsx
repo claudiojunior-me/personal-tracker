@@ -11,7 +11,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
   function onDayPress(day) {
     console.log(day?.dateString)
-    addTrackForDate(day.dateString)
+    addTrackForDate(day.dateString, habits[0])
   }
 
   return (
@@ -29,7 +29,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
       {
         habits.map(habit => (
-          <Chip label={habit.name} onPress={() => console.log('pressed')} backgroundColor={habit.color} />
+          <Chip key={habit.name} label={habit.name} onPress={() => console.log('pressed')} backgroundColor={habit.color} />
         ))
       }
     </View>

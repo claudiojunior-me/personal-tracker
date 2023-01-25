@@ -1,10 +1,11 @@
-import { TMarkedDates } from '@src/types/dates'
-import { THabit, THabitsContext, THabitsProviderProps } from '@src/types/habit'
 import React, {
   Context,
   createContext, useContext, useEffect, useState
 } from 'react'
-
+import { STORAGE_HABIT_KEYS } from 'src/core/Habit'
+import { getFromStorage, setFromStorage } from 'src/core/Storage'
+import { TMarkedDates } from 'src/types/dates'
+import { THabit, THabitsContext, THabitsProviderProps } from 'src/types/habit'
 
 export const HabitsContext: Context<THabitsContext> = createContext(undefined)
 
@@ -51,13 +52,6 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
     return datesObjParam
   }
 
-  useEffect(() => {
-    console.log('load variables')
-    setHabits(initialHabits)
-    getTrackersToCalendar(initialHabits)
-  }, [])
-
-
   function getTrackersToCalendar(trackersArr: THabit[]) {
     const datesObj: TMarkedDates = {}
 
@@ -70,11 +64,45 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
     setDateMarked(datesObj)
   }
 
-  function addTrackForDate(dateString: string) {
+  function addTrackForDate(dateString: string, habit: THabit) {
     const datesObj = { ...dateMarked }
     
-    setDateMarked(addOrCreate(datesObj, dateString, '#c0c'))
+    setDateMarked(addOrCreate(datesObj, dateString, habit.color))
+
+    setHabits(
+      habits.map(habitInMap => {
+        if (habitInMap.name === habit.name) {
+          const changedHabit = { ...habitInMap }
+          changedHabit.dates?.push(dateString)
+          return changedHabit
+        }
+
+        return habitInMap
+      })
+    )
   }
+
+  useEffect(() => {
+    console.log('load variables')
+    async function loadFromStorage() {
+      const loadedData = await getFromStorage(STORAGE_HABIT_KEYS)
+
+      if (loadedData) {
+        console.log('load from storage')
+        setHabits(loadedData)
+      } else {
+        console.log('set initial data')
+        setHabits(initialHabits)
+      }
+    }
+
+    loadFromStorage()
+  }, [])
+
+  useEffect(() => {
+    getTrackersToCalendar(habits)
+    setFromStorage(STORAGE_HABIT_KEYS, habits)
+  }, [habits])
 
   return (
     <HabitsContext.Provider value={{
