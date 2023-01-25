@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import React from 'react';
-import TrackersProvider from './src/context/trackers';
+import HabitsProvider from './src/context/habits.context';
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
@@ -16,9 +16,9 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <TrackersProvider>
+        <HabitsProvider>
           <Navigation colorScheme={colorScheme} />
-        </TrackersProvider>
+        </HabitsProvider>
         <StatusBar />
       </SafeAreaProvider>
     );

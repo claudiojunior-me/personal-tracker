@@ -1,37 +1,14 @@
+import { TMarkedDates } from '@src/types/dates'
+import { THabit, THabitsContext, THabitsProviderProps } from '@src/types/habit'
 import React, {
   Context,
   createContext, useContext, useEffect, useState
 } from 'react'
 
-type TTrackers = {
-  name: string,
-  color: string,
-  dates?: string[]
-}
 
-type TMarkedDates = {
-  [key: string]: {
-    periods: {
-      startingDay: boolean,
-      endingDay: boolean,
-      color: string
-    }[]
-  }
-}
+export const HabitsContext: Context<THabitsContext> = createContext(undefined)
 
-type TTrackersProviderProps = {
-  children: React.ReactNode,
-}
-
-type TTrackersContext = {
-  trackers: any[],
-  dateMarked: TMarkedDates | undefined,
-  addTrackForDate: (dateString: string) => void
-}
-
-export const TrackersContext: Context<TTrackersContext> = createContext(undefined)
-
-const initialTrackers: TTrackers[] = [
+const initialHabits: THabit[] = [
   {
   name: 'Hábito 01',
   color: '#5f9ea0',
@@ -48,8 +25,9 @@ const initialTrackers: TTrackers[] = [
   }
 ]
 
-const TrackersProvider = ({ children }: TTrackersProviderProps) => {
-  const [trackers, setTrackers] = useState<TTrackers[]>([])
+
+const HabitsProvider = ({ children }: THabitsProviderProps) => {
+  const [habits, setHabits] = useState<THabit[]>([])
   const [dateMarked, setDateMarked] = useState<TMarkedDates>()
 
   const addOrCreate = (datesObjParam: TMarkedDates, dateKey: string, color: string) => {
@@ -75,12 +53,12 @@ const TrackersProvider = ({ children }: TTrackersProviderProps) => {
 
   useEffect(() => {
     console.log('load variables')
-    setTrackers(initialTrackers)
-    getTrackersToCalendar(initialTrackers)
+    setHabits(initialHabits)
+    getTrackersToCalendar(initialHabits)
   }, [])
 
 
-  function getTrackersToCalendar(trackersArr: TTrackers[]) {
+  function getTrackersToCalendar(trackersArr: THabit[]) {
     const datesObj: TMarkedDates = {}
 
     trackersArr.forEach(tracker => {
@@ -99,20 +77,20 @@ const TrackersProvider = ({ children }: TTrackersProviderProps) => {
   }
 
   return (
-    <TrackersContext.Provider value={{
-      trackers,
+    <HabitsContext.Provider value={{
+      habits,
       dateMarked,
       addTrackForDate
     }}>
       {children}
-    </TrackersContext.Provider>
+    </HabitsContext.Provider>
   )
 }
 
-export const useTrackers = () => {
-  const context = useContext(TrackersContext)
+export const useHabits = () => {
+  const context = useContext(HabitsContext)
 
   return context
 }
 
-export default TrackersProvider
+export default HabitsProvider

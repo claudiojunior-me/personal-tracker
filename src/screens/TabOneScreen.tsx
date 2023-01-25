@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { Chip } from 'react-native-ui-lib';
-import { useTrackers } from '../context/trackers';
+import { useHabits } from '../context/habits.context';
 
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const { dateMarked, trackers, addTrackForDate } = useTrackers()
+  const { dateMarked, habits, addTrackForDate } = useHabits()
 
   function onDayPress(day) {
     console.log(day?.dateString)
@@ -28,8 +28,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
       {
-        trackers.map(tracker => (
-          <Chip label={tracker.name} onPress={() => console.log('pressed')} backgroundColor={tracker.color} />
+        habits.map(habit => (
+          <Chip label={habit.name} onPress={() => console.log('pressed')} backgroundColor={habit.color} />
         ))
       }
     </View>
