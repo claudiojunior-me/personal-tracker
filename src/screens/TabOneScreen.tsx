@@ -1,6 +1,6 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { ListItem, Text } from 'react-native-ui-lib';
+import { Text } from 'react-native-ui-lib';
 import { useHabits } from '../context/habits.context';
 
 import HabitListItem from 'src/components/HabitListItem';
@@ -18,21 +18,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
   function keyExtractor(habit: THabit) {
     return habit.name
-  }
-
-  function renderHabitRow(habit: THabit) {
-    return (
-      <View>
-        <ListItem height={20}>
-          <ListItem.Part left>
-            <View style={{ height: 15, width: 15, backgroundColor: habit.color }} />
-          </ListItem.Part>
-          <ListItem.Part>
-            <Text marginH-20 text60L>{habit.name}</Text>
-          </ListItem.Part>
-        </ListItem>
-      </View>
-    )
   }
 
   return (
