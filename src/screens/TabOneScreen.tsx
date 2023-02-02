@@ -3,6 +3,7 @@ import { Calendar } from 'react-native-calendars';
 import { ListItem, Text } from 'react-native-ui-lib';
 import { useHabits } from '../context/habits.context';
 
+import HabitListItem from 'src/components/HabitListItem';
 import { THabit } from 'src/types/habit';
 import { View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
@@ -24,7 +25,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       <View>
         <ListItem height={20}>
           <ListItem.Part left>
-            <View style={{ height: 15, width: 15, backgroundColor: habit.color}} />
+            <View style={{ height: 15, width: 15, backgroundColor: habit.color }} />
           </ListItem.Part>
           <ListItem.Part>
             <Text marginH-20 text60L>{habit.name}</Text>
@@ -48,9 +49,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
       <FlatList
-        
         data={habits}
-        renderItem={({ item, index }) => renderHabitRow(item)}
+        renderItem={({ item }) => <HabitListItem habit={item} />}
         keyExtractor={keyExtractor}
       />
     </View>

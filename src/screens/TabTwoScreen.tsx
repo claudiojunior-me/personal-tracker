@@ -1,14 +1,23 @@
-import { StyleSheet } from 'react-native';
+import { FlatList, ScrollView, StyleSheet } from 'react-native';
+import { Card, GridList, GridListProps, Text } from 'react-native-ui-lib';
+import HabitBrick from 'src/components/HabitBrick';
+import { useHabits } from 'src/context/habits.context';
+import { THabit } from 'src/types/habit';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
 
 export default function TabTwoScreen() {
+  const { habits } = useHabits()
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        style={{ backgroundColor: 'pink' }}
+      >
+        {habits.map(habit => <HabitBrick habit={habit} />)}
+      </ScrollView>
     </View>
   );
 }
@@ -16,8 +25,6 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
