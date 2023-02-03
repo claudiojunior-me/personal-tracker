@@ -12,18 +12,18 @@ export const HabitsContext: Context<THabitsContext> = createContext(undefined)
 
 const initialHabits: THabit[] = [
   {
-    _id: uuid.v4(),
+    _id: uuid.v4().toString(),
     name: 'Hábito 01',
     color: '#5f9ea0',
     dates: ['2023-01-09', '2023-01-10', '2023-01-22']
   }, {
-    _id: uuid.v4(),
+    _id: uuid.v4().toString(),
     name: 'Hábito 02',
     color: '#ffa500',
     dates: ['2023-01-15', '2023-01-16', '2023-01-17']
   },
   {
-    _id: uuid.v4(),
+    _id: uuid.v4().toString(),
     name: 'Hábito 03',
     color: '#f0e68c',
     dates: ['2023-01-09', '2023-01-15', '2023-01-22']
@@ -86,13 +86,17 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
     )
   }
 
-  function addNewHabit(newHabit: Partial<THabit>, rewriteAll = false) {
-    newHabit._id = uuid.v4()
+  function addNewHabit(newHabit: THabit, rewriteAll = false) {
+    if (!newHabit._id) {
+      newHabit._id = uuid.v4().toString()
+    }
+
+    const oldHabits = habits.filter(habit => habit._id !== newHabit._id)
 
     setHabits(
       rewriteAll ?
-        [newHabit as THabit] :
-        [newHabit as THabit, ...habits]
+        [newHabit] :
+        [newHabit, ...oldHabits]
     )
   }
 

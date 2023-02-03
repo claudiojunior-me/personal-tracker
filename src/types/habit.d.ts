@@ -1,7 +1,7 @@
 import { TMarkedDates } from "./dates"
 
 export type THabit = {
-  _id: string | number[],
+  _id: string,
   name: string,
   color: string,
   dates?: string[]
@@ -15,5 +15,5 @@ export type THabitsContext = {
   habits: THabit[],
   dateMarked: TMarkedDates | undefined,
   addTrackForDate: (dateString: string, habit: THabit) => void,
-  addNewHabit: (newHabit: THabit, rewriteAll?: boolean) => void,
+  addNewHabit: (newHabit: Partial<THabit>, rewriteAll?: boolean) => void,
 }

@@ -1,22 +1,27 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { Box, Button, Center, FormControl, Input, VStack } from 'native-base';
 import React, { useState } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import ColorPicker, { HueSlider, OpacitySlider, Panel1, Preview, Swatches } from 'reanimated-color-picker';
 import { useHabits } from 'src/context/habits.context';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-
-type TFormData = {
-  name: string,
-  color: string,
-}
+import { RootStackParamList } from 'src/types';
+import { THabit } from 'src/types/habit';
 
 const customSwatches = ['#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff'];
 
-export default function ModalScreen({ navigation }) {
-  const [formData, setData] = React.useState<TFormData>({ name: '', color: customSwatches[0] });
+type ModalScreenProps = NativeStackScreenProps<RootStackParamList, 'Modal'>
+
+export default function ModalScreen({ navigation, route }: ModalScreenProps) {
+  const { habit } = route.params
+  console.log(habit)
+
+  const [formData, setData] = React.useState<THabit>({
+    _id: habit?._id || '',
+    name: habit?.name || '',
+    color: habit?.color || customSwatches[0]
+  });
   const [errors, setErrors] = React.useState({});
   const { addNewHabit } = useHabits()
 
@@ -43,7 +48,7 @@ export default function ModalScreen({ navigation }) {
       console.log('Validation Failed')
       return
     }
-
+    console.log('send this: ', formData)
     addNewHabit(formData)
     navigation.goBack()
     // validate() ? console.log('Submitted') : console.log('Validation Failed');
@@ -60,7 +65,7 @@ export default function ModalScreen({ navigation }) {
       <VStack width='90%' marginX='3' maxW='300px'>
         <FormControl isRequired isInvalid={'name' in errors}>
           <FormControl.Label _text={{ bold: true }}>Qual o hábito?</FormControl.Label>
-          <Input placeholder="Ler 1 capítulo por dia" onChangeText={value => setData({
+          <Input placeholder="Ler 1 capítulo por dia" value={formData.name} onChangeText={value => setData({
             ...formData,
             name: value
           })} />

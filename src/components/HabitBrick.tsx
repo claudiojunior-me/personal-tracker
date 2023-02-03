@@ -1,22 +1,27 @@
+import { Pressable } from 'native-base'
 import { StyleSheet } from "react-native"
 import { THabit } from "src/types/habit"
 import { Text, View } from "./Themed"
 
 type THabitBrickProps = {
-  habit: THabit
+  habit: THabit,
+  onClick: (habit: THabit) => void
 }
 
-const HabitBrick = ({ habit }: THabitBrickProps) => {
+const HabitBrick = ({ habit, onClick }: THabitBrickProps) => {
   return (
     <View
       key={habit._id}
       style={{ ...styles.container }}
+
     >
-      <Text style={styles.title}>{habit.name}</Text>
-      <View style={styles.containerNumbers}>
-        <Text style={{ ...styles.number, color: habit.color }}>{habit.dates?.length || 0}</Text>
-        <Text style={styles.helperText}>dias concluídos</Text>
-      </View>
+      <Pressable onPress={() => onClick(habit)}>
+        <Text style={styles.title}>{habit.name}</Text>
+        <View style={styles.containerNumbers}>
+          <Text style={{ ...styles.number, color: habit.color }}>{habit.dates?.length || 0}</Text>
+          <Text style={styles.helperText}>dias concluídos</Text>
+        </View>
+      </Pressable>
     </View>
   )
 }

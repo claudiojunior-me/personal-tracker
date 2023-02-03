@@ -21,7 +21,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Meus Hábitos</Text>
       <Calendar
         monthFormat={'MMM yyyy'}
         firstDay={0}
