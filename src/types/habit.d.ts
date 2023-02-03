@@ -1,6 +1,7 @@
 import { TMarkedDates } from "./dates"
 
 export type THabit = {
+  _id: string | number[],
   name: string,
   color: string,
   dates?: string[]

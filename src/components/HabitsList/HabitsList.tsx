@@ -8,7 +8,7 @@ const HabitsList = () => {
   const { habits } = useHabits()
 
   function keyExtractor(habit: THabit) {
-    return habit.name
+    return habit._id
   }
 
   function renderHabitRow(habit: THabit) {

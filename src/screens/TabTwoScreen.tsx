@@ -28,7 +28,7 @@ export default function TabTwoScreen({ navigation }: ScreenTwoProps) {
         contentContainerStyle={{ flexGrow: 1 }}
         style={{ backgroundColor: 'pink' }}
       >
-        {habits.map(habit => <HabitBrick key={habit.name} habit={habit} />)}
+        {habits.map(habit => <HabitBrick key={habit._id} habit={habit} />)}
       </ScrollView>
 
       <Fab placement='bottom-left' renderInPortal={false} shadow={2} size="sm" label='Clear' onPress={clearHabits} />

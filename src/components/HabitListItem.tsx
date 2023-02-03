@@ -9,7 +9,7 @@ type THabitListItemProps = {
 const HabitListItem = ({ habit }: THabitListItemProps) => {
   return (
     <View
-      key={habit.name}
+      key={habit._id}
       style={styles.container}
     >
       <View style={{ ...styles.viewColor, backgroundColor: habit.color }} />

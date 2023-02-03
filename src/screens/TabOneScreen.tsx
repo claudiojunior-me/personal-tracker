@@ -16,7 +16,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   }
 
   function keyExtractor(habit: THabit) {
-    return habit.name
+    return habit._id
   }
 
   return (

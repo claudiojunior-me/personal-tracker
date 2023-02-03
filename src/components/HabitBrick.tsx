@@ -9,7 +9,7 @@ type THabitBrickProps = {
 const HabitBrick = ({ habit }: THabitBrickProps) => {
   return (
     <View
-      key={habit.name}
+      key={habit._id}
       style={{ ...styles.container }}
     >
       <Text style={styles.title}>{habit.name}</Text>

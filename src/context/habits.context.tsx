@@ -2,6 +2,7 @@ import React, {
   Context,
   createContext, useContext, useEffect, useState
 } from 'react'
+import uuid from 'react-native-uuid'
 import { STORAGE_HABIT_KEYS } from 'src/core/Habit'
 import { getFromStorage, setFromStorage } from 'src/core/Storage'
 import { TMarkedDates } from 'src/types/dates'
@@ -11,15 +12,18 @@ export const HabitsContext: Context<THabitsContext> = createContext(undefined)
 
 const initialHabits: THabit[] = [
   {
+    _id: uuid.v4(),
     name: 'Hábito 01',
     color: '#5f9ea0',
     dates: ['2023-01-09', '2023-01-10', '2023-01-22']
   }, {
+    _id: uuid.v4(),
     name: 'Hábito 02',
     color: '#ffa500',
     dates: ['2023-01-15', '2023-01-16', '2023-01-17']
   },
   {
+    _id: uuid.v4(),
     name: 'Hábito 03',
     color: '#f0e68c',
     dates: ['2023-01-09', '2023-01-15', '2023-01-22']
@@ -71,7 +75,7 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
 
     setHabits(
       habits.map(habitInMap => {
-        if (habitInMap.name === habit.name) {
+        if (habitInMap._id === habit._id) {
           const changedHabit = { ...habitInMap }
           changedHabit.dates?.push(dateString)
           return changedHabit
@@ -82,8 +86,14 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
     )
   }
 
-  function addNewHabit(newHabit: THabit, rewriteAll = false) {
-    setHabits(rewriteAll ? [newHabit] : [newHabit, ...habits])
+  function addNewHabit(newHabit: Partial<THabit>, rewriteAll = false) {
+    newHabit._id = uuid.v4()
+
+    setHabits(
+      rewriteAll ?
+        [newHabit as THabit] :
+        [newHabit as THabit, ...habits]
+    )
   }
 
   useEffect(() => {
