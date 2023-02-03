@@ -1,18 +1,25 @@
 import { NavigationProp } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Fab, Icon } from 'native-base';
 import { FlatList, ScrollView, StyleSheet } from 'react-native';
 import HabitBrick from 'src/components/HabitBrick';
 import { useHabits } from 'src/context/habits.context';
+import { RootStackParamList } from 'src/types';
 import { THabit } from 'src/types/habit';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { View } from '../components/Themed';
 
-export default function TabTwoScreen({ navigation }) {
-  const { habits } = useHabits()
+type ScreenTwoProps = NativeStackScreenProps<RootStackParamList, 'Root'>
+
+export default function TabTwoScreen({ navigation }: ScreenTwoProps) {
+  const { habits, addNewHabit } = useHabits()
 
   const openModal = () => {
     navigation.navigate('Modal')
+  }
+
+  const clearHabits = () => {
+    addNewHabit(habits[0], true)
   }
 
   return (
@@ -21,8 +28,10 @@ export default function TabTwoScreen({ navigation }) {
         contentContainerStyle={{ flexGrow: 1 }}
         style={{ backgroundColor: 'pink' }}
       >
-        {habits.map(habit => <HabitBrick habit={habit} />)}
+        {habits.map(habit => <HabitBrick key={habit.name} habit={habit} />)}
       </ScrollView>
+
+      <Fab placement='bottom-left' renderInPortal={false} shadow={2} size="sm" label='Clear' onPress={clearHabits} />
       <Fab renderInPortal={false} shadow={2} size="sm" label='Novo Hábito' onPress={openModal} />
     </View>
   );

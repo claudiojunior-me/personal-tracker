@@ -82,8 +82,8 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
     )
   }
 
-  function addNewHabit(newHabit: THabit) {
-    setHabits([newHabit, ...habits])
+  function addNewHabit(newHabit: THabit, rewriteAll = false) {
+    setHabits(rewriteAll ? [newHabit] : [newHabit, ...habits])
   }
 
   useEffect(() => {
