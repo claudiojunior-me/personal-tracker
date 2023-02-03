@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native"
-import { Colors } from "react-native-ui-lib"
 import { THabit } from "src/types/habit"
 import { Text, View } from "./Themed"
 
@@ -8,16 +7,14 @@ type THabitBrickProps = {
 }
 
 const HabitBrick = ({ habit }: THabitBrickProps) => {
-  console.log(Colors.isDark(habit.color))
-
   return (
     <View
       key={habit.name}
-      style={{ ...styles.container, backgroundColor: habit.color }}
+      style={{ ...styles.container }}
     >
       <Text style={styles.title}>{habit.name}</Text>
       <View style={styles.containerNumbers}>
-        <Text style={styles.number}>{habit.dates?.length}</Text>
+        <Text style={{ ...styles.number, color: habit.color }}>{habit.dates?.length || 0}</Text>
         <Text style={styles.helperText}>dias concluídos</Text>
       </View>
     </View>
@@ -37,7 +34,8 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 30,
-    marginBottom: 15
+    lineHeight: 30,
+    marginBottom: 5
   },
   containerNumbers: {
     padding: 0,

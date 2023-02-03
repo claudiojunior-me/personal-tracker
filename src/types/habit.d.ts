@@ -13,5 +13,6 @@ export type THabitsProviderProps = {
 export type THabitsContext = {
   habits: THabit[],
   dateMarked: TMarkedDates | undefined,
-  addTrackForDate: (dateString: string, habit: THabit) => void
+  addTrackForDate: (dateString: string, habit: THabit) => void,
+  addNewHabit: (newHabit: THabit) => void,
 }

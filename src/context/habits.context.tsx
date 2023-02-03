@@ -11,18 +11,18 @@ export const HabitsContext: Context<THabitsContext> = createContext(undefined)
 
 const initialHabits: THabit[] = [
   {
-  name: 'Hábito 01',
-  color: '#5f9ea0',
-  dates: ['2023-01-09', '2023-01-10', '2023-01-22']
-}, {
-  name: 'Hábito 02',
-  color: '#ffa500',
-  dates: ['2023-01-15', '2023-01-16', '2023-01-17']
-},
-{
-  name: 'Hábito 03',
-  color: '#f0e68c',
-  dates: ['2023-01-09', '2023-01-15', '2023-01-22']
+    name: 'Hábito 01',
+    color: '#5f9ea0',
+    dates: ['2023-01-09', '2023-01-10', '2023-01-22']
+  }, {
+    name: 'Hábito 02',
+    color: '#ffa500',
+    dates: ['2023-01-15', '2023-01-16', '2023-01-17']
+  },
+  {
+    name: 'Hábito 03',
+    color: '#f0e68c',
+    dates: ['2023-01-09', '2023-01-15', '2023-01-22']
   }
 ]
 
@@ -66,7 +66,7 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
 
   function addTrackForDate(dateString: string, habit: THabit) {
     const datesObj = { ...dateMarked }
-    
+
     setDateMarked(addOrCreate(datesObj, dateString, habit.color))
 
     setHabits(
@@ -80,6 +80,10 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
         return habitInMap
       })
     )
+  }
+
+  function addNewHabit(newHabit: THabit) {
+    setHabits([newHabit, ...habits])
   }
 
   useEffect(() => {
@@ -108,7 +112,8 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
     <HabitsContext.Provider value={{
       habits,
       dateMarked,
-      addTrackForDate
+      addTrackForDate,
+      addNewHabit
     }}>
       {children}
     </HabitsContext.Provider>

@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native"
-import { Colors, Text } from "react-native-ui-lib"
 import { THabit } from "src/types/habit"
-import { View } from "./Themed"
+import { Text, View } from "./Themed"
 
 type THabitListItemProps = {
   habit: THabit

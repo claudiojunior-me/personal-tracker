@@ -1,17 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { Calendar } from 'react-native-calendars';
-import { Text } from 'react-native-ui-lib';
+import { FlatList, StyleSheet } from 'react-native';
+import { Calendar, DateData } from 'react-native-calendars';
 import { useHabits } from '../context/habits.context';
 
 import HabitListItem from 'src/components/HabitListItem';
 import { THabit } from 'src/types/habit';
-import { View } from '../components/Themed';
+import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const { dateMarked, habits, addTrackForDate } = useHabits()
 
-  function onDayPress(day) {
+  function onDayPress(day: DateData) {
     console.log(day?.dateString)
     addTrackForDate(day.dateString, habits[0])
   }

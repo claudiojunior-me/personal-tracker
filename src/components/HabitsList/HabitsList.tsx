@@ -1,10 +1,10 @@
+import { Box, HStack, Spacer, Text, VStack } from 'native-base'
 import { FlatList } from "react-native"
-import { ListItem } from "react-native-ui-lib"
 import { useHabits } from "src/context/habits.context"
 import { THabit } from "src/types/habit"
-import { Text, View } from "../Themed"
+import { View } from "../Themed"
 
-const HabitsList = () => { 
+const HabitsList = () => {
   const { habits } = useHabits()
 
   function keyExtractor(habit: THabit) {
@@ -13,16 +13,20 @@ const HabitsList = () => {
 
   function renderHabitRow(habit: THabit) {
     return (
-      <View>
-        <ListItem height={20}>
-          <ListItem.Part left>
-            <View style={{ height: 15, width: 15, backgroundColor: habit.color }} />
-          </ListItem.Part>
-          <ListItem.Part>
-            <Text>{habit.name}</Text>
-          </ListItem.Part>
-        </ListItem>
-      </View>
+      <Box borderBottomWidth="1" _dark={{
+        borderColor: "muted.50"
+      }
+      } borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2" >
+        <HStack space={[2, 3]} justifyContent="space-between">
+          <VStack>
+            <Text _dark={{
+              color: "warmGray.50"
+            }} color="coolGray.800" bold>
+              {habit.name}
+            </Text>
+          </VStack>
+        </HStack>
+      </Box >
     )
   }
 
