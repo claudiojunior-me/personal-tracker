@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Fab, Icon } from 'native-base';
@@ -32,8 +33,16 @@ export default function TabTwoScreen() {
         {habits.map(habit => <HabitBrick key={habit._id} habit={habit} onClick={openModal} />)}
       </ScrollView>
 
-      <Fab placement='bottom-left' renderInPortal={false} shadow={2} size="sm" label='Clear' onPress={clearHabits} />
-      <Fab renderInPortal={false} shadow={2} size="sm" label='Novo Hábito' onPress={() => openModal()} />
+      {/* <Fab placement='bottom-left' renderInPortal={false} shadow={2} size="sm" label='Deixar apenas 1' onPress={clearHabits} /> */}
+      <Fab
+        backgroundColor='base.primary'
+        renderInPortal={false}
+        shadow={2}
+        icon={<Icon color="white" as={AntDesign} name="plus" size='md' />}
+        // size="sm"
+        label='Novo Hábito'
+        onPress={() => openModal()}
+      />
     </View>
   );
 }

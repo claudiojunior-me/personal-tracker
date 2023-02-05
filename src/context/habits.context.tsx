@@ -33,7 +33,7 @@ const initialHabits: THabit[] = [
 
 const HabitsProvider = ({ children }: THabitsProviderProps) => {
   const [habits, setHabits] = useState<THabit[]>([])
-  const [dateMarked, setDateMarked] = useState<TMarkedDates>()
+  const [dateMarked, setDateMarked] = useState<TMarkedDates>({})
 
   const addOrCreate = (datesObjParam: TMarkedDates, dateKey: string, color: string) => {
     if (!!datesObjParam[dateKey]) {
@@ -89,6 +89,7 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
   function addNewHabit(newHabit: THabit, rewriteAll = false) {
     if (!newHabit._id) {
       newHabit._id = uuid.v4().toString()
+      newHabit.dates = []
     }
 
     const oldHabits = habits.filter(habit => habit._id !== newHabit._id)

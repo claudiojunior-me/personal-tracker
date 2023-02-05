@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { DateData } from 'react-native-calendars';
 import { THabit } from './types/habit';
 
 declare global {
@@ -17,6 +18,7 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: { habit: THabit | undefined };
+  SelectHabitsModal: { selectedDay: DateData };
   NotFound: undefined;
 };
 

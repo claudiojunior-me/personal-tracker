@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "personal-tracker",
+    "name": "Acompanhamento de Hábitos",
     "slug": "personal-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#4d6b30"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
