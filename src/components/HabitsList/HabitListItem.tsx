@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 import { THabit } from "src/types/habit"
-import { Text, View } from "./Themed"
+import { Text, View } from "../Themed"
 
 type THabitListItemProps = {
   habit: THabit
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   viewColor: {
     marginRight: 12,
     height: 30,
-    width: 60,
-    borderRadius: 15
+    width: 30,
+    borderRadius: 5
   }
 });
 

@@ -3,10 +3,34 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { extendTheme, NativeBaseProvider } from 'native-base';
 import React from 'react';
+import { LocaleConfig } from 'react-native-calendars';
 import HabitsProvider from './src/context/habits.context';
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
+
+LocaleConfig.locales['pt-br'] = {
+  monthNames: [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Août',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre'
+  ],
+  monthNamesShort: ['Jan.', 'Fev.', 'Mar.', 'Abr.', 'Mai.', 'Jun.', 'Jul.', 'Ago.', 'Set.', 'Out.', 'Nov.', 'Dez.'],
+  dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+  dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Quin', 'Sex', 'Sáb'],
+  today: "Hoje"
+};
+
+LocaleConfig.defaultLocale = 'pt-br';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

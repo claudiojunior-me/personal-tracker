@@ -1,29 +1,22 @@
 import React from 'react';
 
-import { FlatList, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
 import { useHabits } from '../context/habits.context';
 
-import { useNavigation } from '@react-navigation/native';
-import { Actionsheet, Box, Text } from 'native-base';
-import HabitListItem from 'src/components/HabitListItem';
+import { AntDesign } from '@expo/vector-icons';
+import { Actionsheet, Box, HStack, Icon, Text } from 'native-base';
+import HabitsList from 'src/components/HabitsList';
 import { THabit } from 'src/types/habit';
 import { View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen() {
   const { dateMarked, habits, addTrackForDate } = useHabits()
-  const navigation = useNavigation()
 
   const [isActionSheetOpen, setActionSheetOpen] = React.useState<boolean>(false)
   const [selectedDate, setSelectedDate] = React.useState<DateData | undefined>(undefined)
 
   function onDayPress(day: DateData) {
-    console.log(day?.dateString)
-    // navigation.navigate('SelectHabitsModal', {
-    //   selectedDay: day
-    // })
-    // addTrackForDate(day.dateString, habits[0])
     setSelectedDate(day)
   }
 
@@ -49,15 +42,6 @@ export default function TabOneScreen() {
     setActionSheetOpen(true)
   }, [selectedDate])
 
-  function keyExtractor(habit: THabit) {
-    return habit._id
-  }
-
-  React.useEffect(() => {
-    console.log(habits)
-    console.log(dateMarked)
-  }, [habits, dateMarked])
-
   return (
     <View style={styles.container}>
       <Calendar
@@ -70,16 +54,12 @@ export default function TabOneScreen() {
       />
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
-      <FlatList
-        data={habits}
-        renderItem={({ item }) => <HabitListItem habit={item} />}
-        keyExtractor={keyExtractor}
-      />
+      <HabitsList />
 
       <Actionsheet isOpen={isActionSheetOpen} onClose={onCloseActionSheet}>
         <Actionsheet.Content>
           <Box w="100%" h={60} px={4} justifyContent="center">
-            <Text fontSize="16" color="gray.500" _dark={{
+            <Text fontSize="20" color="gray.500" _dark={{
               color: "gray.300"
             }}>
               Qual hábito deseja marcar como feito?
@@ -92,12 +72,20 @@ export default function TabOneScreen() {
                 key={habit._id}
                 onPress={() => onSelectHabitOnActionSheet(habit)}
               >
-                {habit.name}
+                <HStack alignItems='center' space={3}>
+                  <View style={{ backgroundColor: habit.color, height: 30, width: 30, borderRadius: 5 }} />
+                  <Text>{habit.name}</Text>
+                </HStack>
               </Actionsheet.Item>
             )
             )
           }
-          <Actionsheet.Item>Cancel</Actionsheet.Item>
+          <Actionsheet.Item
+            leftIcon={<Icon as={AntDesign} name="close" size={8} />}
+            onPress={onCloseActionSheet}
+          >
+            Cancelar
+          </Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
     </View>
@@ -108,16 +96,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 8,
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 20,
     height: 1,
-    width: '80%',
+    width: '100%',
   },
 });

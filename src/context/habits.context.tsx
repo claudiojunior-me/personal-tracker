@@ -13,7 +13,7 @@ export const HabitsContext: Context<THabitsContext> = createContext(undefined)
 const initialHabits: THabit[] = [
   {
     _id: uuid.v4().toString(),
-    name: 'Hábito 01',
+    name: 'Hábito de Exemplo',
     color: '#5f9ea0',
     dates: ['2023-01-09', '2023-01-10', '2023-01-22']
   }, {
@@ -102,17 +102,15 @@ const HabitsProvider = ({ children }: THabitsProviderProps) => {
   }
 
   useEffect(() => {
-    console.log('load variables')
     async function loadFromStorage() {
       const loadedData = await getFromStorage(STORAGE_HABIT_KEYS)
 
       if (loadedData) {
-        console.log('load from storage')
         setHabits(loadedData)
-      } else {
-        console.log('set initial data')
-        setHabits(initialHabits)
       }
+      // else {
+      //   setHabits(initialHabits)
+      // }
     }
 
     loadFromStorage()

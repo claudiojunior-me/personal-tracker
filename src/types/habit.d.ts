@@ -15,5 +15,5 @@ export type THabitsContext = {
   habits: THabit[],
   dateMarked: TMarkedDates | undefined,
   addTrackForDate: (dateString: string, habit: THabit) => void,
-  addNewHabit: (newHabit: Partial<THabit>, rewriteAll?: boolean) => void,
+  addNewHabit: (newHabit: THabit, rewriteAll?: boolean) => void,
 }
