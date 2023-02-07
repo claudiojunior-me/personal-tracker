@@ -5,8 +5,14 @@ module.exports = function (api) {
     plugins: [
       [
         "module-resolver",
-        'react-native-reanimated/plugin',
+        {
+          alias: {
+            // This needs to be mirrored in tsconfig.json
+            src: "./src",
+          },
+        },
       ],
+      'react-native-reanimated/plugin',
     ],
   };
 };
