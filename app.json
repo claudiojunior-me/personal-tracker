@@ -2,7 +2,7 @@
   "expo": {
     "name": "Acompanhamento de Hábitos",
     "slug": "personal-tracker",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -23,6 +23,7 @@
       "bundleIdentifier": "com.cvjunior1091.personaltracker"
     },
     "android": {
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
